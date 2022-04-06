@@ -49,14 +49,14 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
 
 
     public static class RoutingDataSourceContext {
-        private final ThreadLocal<String> CURRENT_DATASOURCE = new ThreadLocal<>();
+        private final ThreadLocal<String> currentDataSource = new ThreadLocal<>();
 
         public void set(String source) {
-            CURRENT_DATASOURCE.set(source);
+            currentDataSource.set(source);
         }
 
         public String getCurrentDatasource() {
-            return CURRENT_DATASOURCE.get();
+            return currentDataSource.get();
         }
     }
 
