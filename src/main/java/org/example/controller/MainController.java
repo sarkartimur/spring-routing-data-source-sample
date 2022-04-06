@@ -17,7 +17,7 @@ public class MainController {
     private final RoutingDataSource dataSource;
 
     @GetMapping("/")
-    public List<Customer> countryCodeFlux() {
+    public List<Customer> findAll() {
         return dataSource.getConfig().getParams().keySet().stream().map(k -> {
                     dataSource.getContext().set(k);
                     return service.findAll();
