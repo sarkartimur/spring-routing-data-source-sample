@@ -5,12 +5,14 @@ import lombok.Data;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "orders")
 @Data
-public class Customer {
+public class Order {
     @Id
     private Long id;
     @Basic
-    private String name;
+    private String item;
 }

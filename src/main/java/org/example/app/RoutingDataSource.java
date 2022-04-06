@@ -2,6 +2,7 @@ package org.example.app;
 
 import lombok.Data;
 import lombok.Getter;
+import org.example.aop.DataSources;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
@@ -31,9 +32,7 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
     public void afterPropertiesSet() {
         Map<Object, Object> dataSources = createDataSources();
         setTargetDataSources(dataSources);
-        Object ds = dataSources.values().stream().findFirst()
-                .orElseThrow(() -> new RuntimeException("Datasource not defined"));
-        setDefaultTargetDataSource(ds);
+        setDefaultTargetDataSource(dataSources.get(DataSources.defaultDataSource()));
         super.afterPropertiesSet();
     }
 
@@ -49,13 +48,13 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
 
 
     public static class RoutingDataSourceContext {
-        private final ThreadLocal<String> currentDataSource = new ThreadLocal<>();
+        private final ThreadLocal<DataSources> currentDataSource = new ThreadLocal<>();
 
-        public void set(String source) {
-            currentDataSource.set(source);
+        public void set(DataSources selector) {
+            currentDataSource.set(selector);
         }
 
-        public String getCurrentDatasource() {
+        public DataSources getCurrentDatasource() {
             return currentDataSource.get();
         }
     }
@@ -65,7 +64,7 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
     @ConfigurationProperties(prefix = "datasource")
     @Getter
     public static class RoutingDataSourceConfigurationProperties {
-        private final Map<String, DataSourceParams> params = new HashMap<>();
+        private final Map<DataSources, DataSourceParams> params = new HashMap<>();
 
         @Data
         public static class DataSourceParams {
