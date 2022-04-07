@@ -15,7 +15,7 @@ public class MainService {
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
 
-    public List<Customer> findAllСustomers() {
+    public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
 

@@ -16,7 +16,7 @@ public class MainController {
 
     @GetMapping("/customers")
     public List<Customer> customers() {
-        return service.findAllСustomers();
+        return service.findAllCustomers();
     }
 
     @GetMapping("/orders")
