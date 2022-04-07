@@ -32,7 +32,7 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
     public void afterPropertiesSet() {
         Map<Object, Object> dataSources = createDataSources();
         setTargetDataSources(dataSources);
-        setDefaultTargetDataSource(dataSources.get(DataSources.defaultDataSource()));
+        setDefaultTargetDataSource(dataSources.get(DataSources.DEFAULT));
         super.afterPropertiesSet();
     }
 

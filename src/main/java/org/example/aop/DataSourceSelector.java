@@ -1,12 +1,10 @@
 package org.example.aop;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Inherited
+@Target({ElementType.TYPE})
 public @interface DataSourceSelector {
-    DataSources value() default DataSources.DATA_SOURCE_1;
+    DataSources value() default DataSources.DEFAULT;
 }
