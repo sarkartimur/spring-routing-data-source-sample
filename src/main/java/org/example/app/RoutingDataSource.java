@@ -1,7 +1,9 @@
 package org.example.app;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import org.example.aop.DataSources;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -16,7 +18,8 @@ import java.util.stream.Collectors;
 @Getter
 public class RoutingDataSource extends AbstractRoutingDataSource {
     private final RoutingDataSourceConfigurationProperties config;
-    private final RoutingDataSourceContext context;
+    @Setter(AccessLevel.PACKAGE)
+    private RoutingDataSourceContext context;
 
     public RoutingDataSource(RoutingDataSourceConfigurationProperties config) {
         this.config = config;
