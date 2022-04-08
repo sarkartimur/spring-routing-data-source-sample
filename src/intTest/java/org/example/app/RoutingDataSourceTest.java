@@ -62,13 +62,15 @@ public class RoutingDataSourceTest {
 
     @Test
     public void dbOperations_shouldUseAppropriateDataSource() {
-        Customer customer = new Customer(1L, "John");
-        customerRepository.save(customer);
-        assertEquals(customer, customerRepository.findById(1L).get());
-
+        // custom ds
         Order order = new Order(1L, "Johns order");
         orderRepository.save(order);
         assertEquals(order, orderRepository.findById(1L).get());
+
+        // default ds
+        Customer customer = new Customer(1L, "John");
+        customerRepository.save(customer);
+        assertEquals(customer, customerRepository.findById(1L).get());
 
         verify(context, times(2)).set(eq(DataSources.CUSTOM_DATASOURCE));
     }
